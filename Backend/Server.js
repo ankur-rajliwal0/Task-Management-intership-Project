@@ -4,11 +4,13 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const ConnectDb = require("./Db/ConnectDb");
+const Routes = require("./Routes/Index");
 
 // middlewares
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use("/api/v1", Routes);
 
 dotenv.config();
 
