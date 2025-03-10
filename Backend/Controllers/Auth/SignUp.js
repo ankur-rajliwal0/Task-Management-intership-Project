@@ -20,23 +20,21 @@ async function CreateUser(req, res) {
         .json({ message: "User already exists, use another email" });
     }
 
-    // Hash the password before saving
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
 
     // Create a new user
     const newUser = new User({
       Firstname,
       lastname,
       email,
-      password: hashedPassword, // Store hashed password
+      password, // Store hashed password
     });
 
     // Save the user to the database
     await newUser.save();
 
     // Send success response
-    return res.status(201).json({ message: "User created successfully" });
+    return res.status(201).json({ message: "User created successfully",newUser });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
